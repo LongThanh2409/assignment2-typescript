@@ -1,7 +1,7 @@
 
 import { IProduct } from "../interfaces/products"
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { getProduct } from "../Api/products"
 
 const Products_detail = () => {
@@ -28,9 +28,9 @@ const Products_detail = () => {
                     <div className="flex items-center">
 
                         <div className="ml-10 flex items-baseline space-x-2">
-
-                            <span className="hover:underline px-2 py-2 rounded-md text-sm font-medium">Trang chủ </span>
-
+                            <Link to={"/"}>
+                                <span className="hover:underline px-2 py-2 rounded-md text-sm font-medium">Trang chủ </span>
+                            </Link>
 
                             <a href="#" className="hover:underline px-3 py-2 rounded-md text-sm font-medium">Điện thoại</a>
                             <a href="#" className="hover:underline px-3 py-2 rounded-md text-sm font-medium">{product.name}</a>
@@ -52,7 +52,7 @@ const Products_detail = () => {
             <div className="lg:flex  ">
                 <div className=" min-w-0">
                     {/* Ảnh sản sản phẩm */}
-
+                    <img className=" w-[358px] object-cover lg:h-full lg:w-96" src={product.images?.[0]?.base_url} alt="" />
                 </div>
                 <div className=" flex lg:mt-0 lg:ml-10">
                     <div className="max-w-ful flex flex-col justify-between ml-32">

@@ -1,7 +1,7 @@
 import Header from "./Admin_header"
 import Navbar from "./Admin_Navbar"
 import { Outlet } from "react-router-dom"
-import ProductsAdmin from "./Pages/Products/productsAdmin"
+import ProductsAdmin from "./Products/productsAdmin"
 
 const Layout = () => {
     return <>
@@ -12,7 +12,7 @@ const Layout = () => {
                 {/* Navbar */}
                 <Navbar />
 
-                <div className="flex-1 bg-gray-100 p-4  h-screen o">
+                <div className="flex-1 bg-gray-100 p-4  h-auto">
                     {/* Products_ */}
                     <Outlet />
                     {/* <ProductsAdmin /> */}
