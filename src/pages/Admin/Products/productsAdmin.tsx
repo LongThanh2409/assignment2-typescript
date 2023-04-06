@@ -61,7 +61,7 @@ const ProductsAdmin = () => {
                     <th  >Action </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y-4 divide-gray-200">
                 {products.map((products, index) => {
 
                     return (

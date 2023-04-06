@@ -5,9 +5,12 @@ import ProductsAdmin from "./Products/productsAdmin"
 
 const Layout = () => {
     return <>
-        <div className="flex flex-col h-screen">
+        <div className="flex  flex-col h-screen">
             {/* header */}
-            <Header />
+            <div className=" w-full z-10">
+                <Header />
+            </div>
+
             <div className="flex-1 flex flex-row">
                 {/* Navbar */}
                 <Navbar />

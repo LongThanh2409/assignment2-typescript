@@ -1,6 +1,43 @@
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom'
+import { SigninForm, signinSchema } from "../../interfaces/auth"
+import { Login_user } from '../../Api/athu';
+import { useLocalStorage } from '../../hooks';
 
 
-const Login = () => {
+const Logins = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<SigninForm>({
+        resolver: yupResolver(signinSchema)
+    })
+
+    const navigate = useNavigate()
+
+    const [user, setUser] = useLocalStorage("user", null)
+
+    const onSubmit = async (data: SigninForm) => {
+        console.log(data);
+
+        try {
+            const { data: { accessToken, user } } = await Login_user(data)
+
+            setUser({
+                accessToken,
+                ...user
+            })
+            if (user.role) {
+                navigate('/admin')
+            } else {
+                navigate('/')
+            }
+
+        } catch (err) {
+            console.log(err);
+
+        }
+
+    }
+
     return (
         /* <form onSubmit={handleSubmit(onSubmit)} className="">
           <div className="form-group">
@@ -33,19 +70,37 @@ const Login = () => {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-gray-900">
                             Sign in to your account
                         </h1>
-                        <form className="space-y-4 md:space-y-6">
+                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-900">Your email</label>
                                 <input
+                                    type="email"
+                                    {...register('email')}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="name@company.com"
 
-                                    type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />
+                                />
 
+                                <p className='text-red-600 text-[10px]'>
 
+                                    {errors.email && errors.email.message}
+                                </p>
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-900">Password</label>
-                                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                <small id="emailHelp" className="form-text text-muted">Trường  Password là bắt buộc</small>
+                                <input
+                                    type="password"
+                                    {...register('password')}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="name@company.com"
+
+                                />
+                                <p className='text-red-600 text-[10px]'>
+
+                                    {errors.password && errors.password.message}
+                                </p>
+
+                                {/* <small id="emailHelp" className="form-text text-muted">Trường  Password là bắt buộc</small> */}
 
                             </div>
 
@@ -69,4 +124,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Logins

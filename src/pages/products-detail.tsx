@@ -3,23 +3,28 @@ import { IProduct } from "../interfaces/products"
 import { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import { getProduct } from "../Api/products"
-
+import { Carousel } from "react-responsive-carousel"
+import "react-responsive-carousel/lib/styles/carousel.min.css"
 const Products_detail = () => {
 
     // assertion
     const [product, setProduct] = useState<IProduct>({} as IProduct)
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const { id } = useParams()
+
 
     const fetchProductById = async () => {
         const { data } = await getProduct(id!)
         setProduct(data)
+
     }
     useEffect(() => {
         fetchProductById()
     }, [id])
 
     return <>
-        {console.log(product.name)}
+        {console.log(product)}
+
 
         <nav className=" text-black shadow-lg ">
 
@@ -31,10 +36,11 @@ const Products_detail = () => {
                             <Link to={"/"}>
                                 <span className="hover:underline px-2 py-2 rounded-md text-sm font-medium">Trang chủ </span>
                             </Link>
-
                             <a href="#" className="hover:underline px-3 py-2 rounded-md text-sm font-medium">Điện thoại</a>
+                            <a href="#" className="hover:underline px-3 py-2 rounded-md text-sm font-medium">{product?.brand?.name}</a>
+
                             <a href="#" className="hover:underline px-3 py-2 rounded-md text-sm font-medium">{product.name}</a>
-                            <a href="#" className="hover:underline px-3 py-2 rounded-md text-sm font-medium">iPhone 13</a>
+
                         </div>
                     </div>
                 </div>
@@ -50,9 +56,21 @@ const Products_detail = () => {
 
 
             <div className="lg:flex  ">
-                <div className=" min-w-0">
+                <div className="  w-[358px]">
                     {/* Ảnh sản sản phẩm */}
-                    <img className=" w-[358px] object-cover lg:h-full lg:w-96" src={product.images?.[0]?.base_url} alt="" />
+
+
+                    <Carousel showArrows={false} showIndicators={false} showThumbs={true} selectedItem={currentImageIndex} onClickItem={(index, item) => setCurrentImageIndex(index)}>
+                        {/* {product.images?.map((image, index) => (
+                            <div key={index}>
+                                <img src={image.base_url} alt={`Product ${index}`} />
+                            </div>
+                        ))} */}
+                        <img className=" w-[358px] object-cover lg:h-full lg:w-96" src={product.images?.[0]?.base_url} alt="" />
+                        <img className=" w-[358px] object-cover lg:h-full lg:w-96" src={product.images?.[1]?.base_url} alt="" />
+                        <img className=" w-[358px] object-cover lg:h-full lg:w-96" src={product.images?.[2]?.base_url} alt="" />
+                    </Carousel>
+
                 </div>
                 <div className=" flex lg:mt-0 lg:ml-10">
                     <div className="max-w-ful flex flex-col justify-between ml-32">
@@ -67,7 +85,7 @@ const Products_detail = () => {
                             <span className="mt-1 ml-1 text-sm font-semibold text-gray-500">{product.original_price}</span>
 
                             {/* Mô tả sản phẩm */}
-                            <p className=" text-sm font-sans text-gray-600">{ }</p>
+                            <p className=" text-sm font-sans text-gray-600">{product.description?.substring(0, 400)}</p>
                         </div>
 
                     </div>
@@ -79,18 +97,16 @@ const Products_detail = () => {
             <div className="mt-10 ml-24 flex">
 
                 <div className="flex -mx-2 ">
-                    <div className="w-1/12 mx-[1px] h-auto w-20  border-2 border-black ">
+                    {/* <div className="w-1/12 mx-[1px] h-auto w-20  border-2 border-black ">
                         <img className=" w-full object-cover cursor-pointer" src={product.images?.[0]?.base_url} alt="Thumbnail 1" />
                     </div>
                     <div className="w-1/12 mx-[1px] h-auto w-20  border-2 border-black">
                         <img className=" w-full  object-cover cursor-pointer" src={product.images?.[1]?.base_url} alt="Thumbnail 2" />
-                    </div>
-                    <div className="w-1/12 mx-[1px] h-auto w-20  border-2 border-black">
-                        <img className=" w-full object-cover cursor-pointer" src={product.images?.[0]?.base_url} alt="Thumbnail 3" />
-                    </div>
-                    <div className="w-1/12 mx-[1px] h-auto w-20  border-2 border-black">
+                    </div> */}
+
+                    {/* <div className="w-1/12 mx-[1px] h-auto w-20  border-2 border-black">
                         <img className=" w-full object-cover cursor-pointer" src={product.images?.[1]?.base_url} alt="Thumbnail 4" />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="grid grid-cols-2 w-96 m-auto">
                     <div className="">

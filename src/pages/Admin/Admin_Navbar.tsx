@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 const Navbar = () => {
     return <>
         <button
@@ -27,7 +28,7 @@ const Navbar = () => {
             className="fixed  left-0  w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 top-[64px]"
             aria-label="Sidebar"
         >
-            <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 ">
+            <div className=" h-full px-3 py-4 overflow-y-auto bg-gray-50 ">
                 <ul className="space-y-2 font-medium">
                     <li>
                         <a
@@ -44,7 +45,9 @@ const Navbar = () => {
                                 <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
                                 <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
                             </svg>
-                            <span className="ml-3">Dashboard</span>
+                            <Link to={'/admin'}>
+                                <span className="ml-3">Dashboard</span>
+                            </Link>
                         </a>
                     </li>
                     <li>

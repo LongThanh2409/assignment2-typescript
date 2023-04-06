@@ -1,6 +1,9 @@
+import * as Yup from 'yup'
+
 export interface IProduct {
     id: string,
     name: string,
+    categorys: string
     price: number,
     original_price: number,
     description: string,
@@ -9,6 +12,7 @@ export interface IProduct {
     specifications: ISpecification[]
 }
 export interface Images {
+    map(arg0: (image: any) => JSX.Element): import("react").ReactNode;
 
     base_url: string;
     is_gallery: boolean;
@@ -24,3 +28,64 @@ export interface ISpecification {
     name: string,
     attributes: { code: string, name: string, value: string }[]
 }
+export const signupSchema = Yup.object({
+    firstName: Yup.string().required("Trường dữ liệu bắt buộc"),
+    lastName: Yup.string().required("Trường dữ liệu bắt buộc"),
+    email: Yup.string().email("Email sai định dạng").required("Trường dữ liệu bắt buộc"),
+    password: Yup.string().min(6).required("Trường dữ liệu bắt buộc"),
+    confirmPassword: Yup.string().oneOf([Yup.ref('password')], "Mật khẩu không khớp"),
+})
+
+export type SignupForm = Yup.InferType<typeof signupSchema>
+
+export const signinSchema = Yup.object({
+    email: Yup.string().email("Email sai định dạng").required("Trường dữ liệu bắt buộc"),
+    password: Yup.string().min(6).required("Trường dữ liệu bắt buộc"),
+    role: Yup.number()
+})
+
+export type SigninForm = Yup.InferType<typeof signinSchema>
+
+export const updateSchema = Yup.object({
+    name: Yup.string().required("Trường dữ liệu bắt buộc"),
+    price: Yup.number().required("Trường dữ liệu bắt buộc"),
+    original_price: Yup.number().required("Trường dữ liệu bắt buộc"),
+    images: Yup.array().of(
+        Yup.object().shape({
+            base_url: Yup.string(),
+            // is_gallery: Yup.boolean(),
+            // label: Yup.string(),
+            // large_url: Yup.string(),
+            // medium_url: Yup.string(),
+            // position: Yup.number(),
+            // small_url: Yup.string(),
+            // thumbnail_url: Yup.string()
+        })
+    ),
+    description: Yup.string().min(10, "Tối thiếu 10 ký tự").required("Trường dữ liệu bắt buộc"),
+})
+
+export type updateForm = Yup.InferType<typeof updateSchema>
+
+// thêm
+export const addSchema = Yup.object({
+    name: Yup.string().required("Trường dữ liệu bắt buộc"),
+    price: Yup.number().required("Trường dữ liệu bắt buộc"),
+    original_price: Yup.number().required("Trường dữ liệu bắt buộc"),
+    images: Yup.array().of(
+        Yup.object().shape({
+            base_url: Yup.string(),
+            // is_gallery: Yup.boolean(),
+            // label: Yup.string(),
+            // large_url: Yup.string(),
+            // medium_url: Yup.string(),
+            // position: Yup.number(),
+            // small_url: Yup.string(),
+            // thumbnail_url: Yup.string()
+        })
+    ),
+    description: Yup.string().min(10, "Tối thiếu 10 ký tự").required("Trường dữ liệu bắt buộc"),
+})
+
+export type addForm = Yup.InferType<typeof addSchema>
+
