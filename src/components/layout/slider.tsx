@@ -1,4 +1,25 @@
+import { useEffect, useState } from "react";
+
 const Slider = () => {
+    const [slide, setSlide] = useState(null);
+
+    useEffect(() => {
+        // Lưu trạng thái của slide trước khi component bị unmount
+        return () => {
+            localStorage.setItem('slide', JSON.stringify(slide));
+        }
+    }, [slide]);
+
+    useEffect(() => {
+        // Phục hồi trạng thái của slide khi component được mount lại
+        const savedSlide = localStorage.getItem('slide');
+        if (savedSlide) {
+            setSlide(JSON.parse(savedSlide));
+        }
+    }, []);
+
+
+
     return <>
 
         <div id="default-carousel " className="relative w-full border-slate-600" data-carousel="slide">

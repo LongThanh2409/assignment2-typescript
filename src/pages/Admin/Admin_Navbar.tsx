@@ -1,5 +1,26 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
+import { ICategorys } from "../../interfaces/categorys";
+import { getCategorys } from "../../Api/categorys";
 const Navbar = () => {
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [categories, setCategories] = useState<ICategorys[]>([]);
+    function toggleMenu() {
+        setIsMenuOpen(prevState => !prevState);
+    }
+    const fetchCategory = async () => {
+        try {
+            const { data } = await getCategorys();
+            setCategories(data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    useEffect(() => {
+
+        fetchCategory()
+    }, [])
     return <>
         <button
             data-drawer-target="separator-sidebar"
@@ -33,7 +54,8 @@ const Navbar = () => {
                     <li>
                         <a
                             href="#"
-                            className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-200"
+                            className="flex items-center p-2 text-gray-900 
+                            hover:text-white  hover:bg-[#00B0D7] rounded-lg dark:hover:bg-gray-200"
                         >
                             <svg
                                 aria-hidden="true"
@@ -50,10 +72,10 @@ const Navbar = () => {
                             </Link>
                         </a>
                     </li>
-                    <li>
+                    <li className="" >
                         <a
-                            href="#"
-                            className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-200"
+                            href="#" onClick={toggleMenu}
+                            className=" flex items-center p-2 text-gray-900 rounded-lg hover:text-white  hover:bg-[#00B0D7] dark:hover:bg-gray-200"
                         >
                             <svg
                                 fill="none"
@@ -72,11 +94,30 @@ const Navbar = () => {
                             </svg>
                             <span className="ml-3">Điện Thoại</span>
                         </a>
+                        {isMenuOpen && (
+                            <ul className="  ml-4 mt-2  h-auto opacity-100 transition-all duration-300 ease-in-out overflow-hidden">
+                                {categories.map((cate) =>
+                                    <Link to={"products-cate/" + cate.id}>
+                                        <li className="">
+                                            <a
+                                                href="#"
+                                                className="flex items-center p-2 text-gray-900 rounded-lg hover:text-white hover:bg-[#00B0D7] dark:hover:bg-gray-200"
+                                            >
+                                                <span className="ml-3">{cate.name}</span>
+                                            </a>
+                                        </li>
+                                    </Link>
+                                )}
+
+
+                            </ul>
+                        )}
+
                     </li>
                     <li>
                         <a
                             href="#"
-                            className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-200"
+                            className="flex items-center p-2 text-gray-900 rounded-lg hover:text-white  hover:bg-[#00B0D7] dark:hover:bg-gray-200"
                         >
                             <svg
                                 fill="none"
@@ -99,7 +140,7 @@ const Navbar = () => {
                     <li>
                         <a
                             href="#"
-                            className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-200"
+                            className="flex items-center p-2 text-gray-900 rounded-lg hover:text-white  hover:bg-[#00B0D7] dark:hover:bg-gray-200"
                         >
                             <svg
                                 fill="none"
@@ -123,7 +164,7 @@ const Navbar = () => {
                     <li>
                         <a
                             href="#"
-                            className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-200"
+                            className="flex items-center p-2 text-gray-900 rounded-lg hover:text-white  hover:bg-[#00B0D7] dark:hover:bg-gray-200"
                         >
                             <svg
                                 fill="none"

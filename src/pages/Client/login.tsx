@@ -4,9 +4,12 @@ import { useNavigate } from 'react-router-dom'
 import { SigninForm, signinSchema } from "../../interfaces/auth"
 import { Login_user } from '../../Api/athu';
 import { useLocalStorage } from '../../hooks';
+import { useEffect, useState } from 'react';
+import { Get_user } from '../../Api/athu';
 
 
 const Logins = () => {
+
     const { register, handleSubmit, formState: { errors } } = useForm<SigninForm>({
         resolver: yupResolver(signinSchema)
     })
@@ -14,11 +17,15 @@ const Logins = () => {
     const navigate = useNavigate()
 
     const [user, setUser] = useLocalStorage("user", null)
+    const [allusers, setAllusers] = useLocalStorage("users", [])
+
 
     const onSubmit = async (data: SigninForm) => {
         console.log(data);
 
+
         try {
+            await Get_user().then(({ data }) => setAllusers(data))
             const { data: { accessToken, user } } = await Login_user(data)
 
             setUser({
@@ -32,37 +39,34 @@ const Logins = () => {
             }
 
         } catch (err) {
-            console.log(err);
+            // const enteredUser = allusers.find((user: { email: string; }) => user.email === data.email);
+            // if (!enteredUser && enteredUser != "") {
+            //     setError("Invalid email");
+            //     return;
+            // }
+            // if (enteredUser.password !== data.password && enteredUser.password !== "") {
+            //     setError("Invalid password");
+            //     return;
+            // }
+            const matchingUser =
+                allusers
+                    .find((user: { email: string, password: string }) => user.email == data.email)
 
+            if (!matchingUser) {
+                alert("Sai email")
+            }
+            if (data.password != matchingUser.password) {
+                alert("Sai password")
+            }
         }
 
     }
 
     return (
-        /* <form onSubmit={handleSubmit(onSubmit)} className="">
-          <div className="form-group">
-            <label htmlFor="exampleInputEmail1">Email address</label>
-            <input {...register('email',{required: true, pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Địa chỉ email không đúng định dạng cần"
-                }})}  type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-            {errors.email?.type === "required" && <small id="emailHelp" className="form-text text-muted">Trường email là bắt buộc</small>}
-            {errors.email?.type === "pattern" && <small id="emailHelp" className="form-text text-muted">{errors.email.message}</small>}
-          </div>
-          <div className="form-group">
-            <label htmlFor="exampleInputPassword1">Password</label>
-            <input {...register('password',{required: true, minLength:{
-                value: 6,
-                message: "Mật khẩu phải có ít nhất 6 ký tự"
-            }})} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
-            {errors.password?.type ==="required" &&  <small id="emailHelp" className="form-text text-muted">Trường  Password là bắt buộc</small>}
-            {errors.password?.type ==="minLength" &&  <small id="emailHelp" className="form-text text-muted">{errors.password.message}</small>}
-          </div>
-          
-          <button type="submit" className="btn btn-primary">Login</button>
-        </form> */
+
 
         <section className="bg-gray-50 ">
+
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
 
                 <div className=" flex  bg-white rounded-lg shadow dark:border md:mt-0 xl:p-0 dark:bg-[#F8F8F8] dark:border-gray-700">
@@ -85,6 +89,7 @@ const Logins = () => {
 
                                     {errors.email && errors.email.message}
                                 </p>
+
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-900">Password</label>
@@ -99,6 +104,7 @@ const Logins = () => {
 
                                     {errors.password && errors.password.message}
                                 </p>
+
 
                                 {/* <small id="emailHelp" className="form-text text-muted">Trường  Password là bắt buộc</small> */}
 

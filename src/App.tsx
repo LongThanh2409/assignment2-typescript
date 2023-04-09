@@ -11,6 +11,7 @@ import ProductsAdmin from './pages/Admin/Products/productsAdmin'
 import AddProducts_Admin from './pages/Admin/Products/AddProducts_Admin'
 import EditProducts_Admin from './pages/Admin/Products/EditProducts_Admin'
 
+
 function App() {
   return <BrowserRouter>
     <Routes>
@@ -25,6 +26,7 @@ function App() {
         <Route index path='/admin' element={<ProductsAdmin />} />
         <Route path='add-products' element={<AddProducts_Admin />} />
         <Route path='edit-products/:id' element={<EditProducts_Admin />} />
+
       </Route>
 
 

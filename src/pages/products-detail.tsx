@@ -23,7 +23,7 @@ const Products_detail = () => {
     }, [id])
 
     return <>
-        {console.log(product)}
+
 
 
         <nav className=" text-black shadow-lg ">
@@ -37,7 +37,12 @@ const Products_detail = () => {
                                 <span className="hover:underline px-2 py-2 rounded-md text-sm font-medium">Trang chủ </span>
                             </Link>
                             <a href="#" className="hover:underline px-3 py-2 rounded-md text-sm font-medium">Điện thoại</a>
-                            <a href="#" className="hover:underline px-3 py-2 rounded-md text-sm font-medium">{product?.brand?.name}</a>
+
+                            <a href="#" className="hover:underline px-3 py-2 rounded-md text-sm font-medium">{product.brand?.name} </a>
+
+
+
+
 
                             <a href="#" className="hover:underline px-3 py-2 rounded-md text-sm font-medium">{product.name}</a>
 
@@ -55,24 +60,24 @@ const Products_detail = () => {
 
 
 
-            <div className="lg:flex  ">
-                <div className="  w-[358px]">
+            <div className="flex  lg:flex  ">
+                <div className="s">
                     {/* Ảnh sản sản phẩm */}
 
 
-                    <Carousel showArrows={false} showIndicators={false} showThumbs={true} selectedItem={currentImageIndex} onClickItem={(index, item) => setCurrentImageIndex(index)}>
+                    <Carousel width={300} showArrows={false} showIndicators={false} showThumbs={true} selectedItem={currentImageIndex} onClickItem={(index, item) => setCurrentImageIndex(index)}>
                         {/* {product.images?.map((image, index) => (
                             <div key={index}>
                                 <img src={image.base_url} alt={`Product ${index}`} />
                             </div>
                         ))} */}
-                        <img className=" w-[358px] object-cover lg:h-full lg:w-96" src={product.images?.[0]?.base_url} alt="" />
-                        <img className=" w-[358px] object-cover lg:h-full lg:w-96" src={product.images?.[1]?.base_url} alt="" />
-                        <img className=" w-[358px] object-cover lg:h-full lg:w-96" src={product.images?.[2]?.base_url} alt="" />
+                        <img className=" w-auto h-full object-cover lg:h-full lg:w-96" src={product.images?.[0]?.base_url} alt="" />
+                        <img className=" w-auto object-cover lg:h-full lg:w-96" src={product.images?.[1]?.base_url} alt="" />
+
                     </Carousel>
 
                 </div>
-                <div className=" flex lg:mt-0 lg:ml-10">
+                <div className=" w-4/6 lg:mt-0 lg:ml-10">
                     <div className="max-w-ful flex flex-col justify-between ml-32">
 
 
@@ -80,12 +85,12 @@ const Products_detail = () => {
 
                         <div className="mt-4">
                             {/* Giá sản phẩm */}
-                            <span className="mt-1 text-2xl  font-semibold text-red-500">{product.price}</span>
+                            <span className="mt-1 text-2xl  font-semibold text-red-500">{product.price?.toLocaleString("vi-VN")}đ</span>
                             {/* Giá cũ của sản phẩm */}
-                            <span className="mt-1 ml-1 text-sm font-semibold text-gray-500">{product.original_price}</span>
+                            <span className="mt-1 ml-1 text-sm font-semibold text-gray-500 line-through ">{product.original_price?.toLocaleString("vi-VN")}đ</span>
 
                             {/* Mô tả sản phẩm */}
-                            <p className=" text-sm font-sans text-gray-600">{product.description?.substring(0, 400)}</p>
+                            <div className="text-sm font-sans text-gray-600 mt-7 leading-7 line-clamp-4" dangerouslySetInnerHTML={{ __html: product.description }} />
                         </div>
 
                     </div>
@@ -128,9 +133,9 @@ const Products_detail = () => {
             </div>
             <div className="flex flex-col mt-10 items-center justify-center  bg-gray-100 p-4">
                 <h1 className="text-red-500 text-lg font-bold mb-4">ĐẶC ĐIỂM NỔI BẬT</h1>
-                <p className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vitae faucibus diam. Nullam at mi risus. Cras eget sem nec nisi dapibus ullamcorper. Ut consequat urna ipsum, eu pharetra neque luctus in.</p>
+                <div className="text-sm font-sans text-gray-600 mt-7 leading-7 " dangerouslySetInnerHTML={{ __html: product.description }} />
             </div>
-        </div>
+        </div >
 
     </>
 }

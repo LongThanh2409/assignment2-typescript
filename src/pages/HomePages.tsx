@@ -27,7 +27,7 @@ const HomePages = () => {
         <Slider />
 
         <h1>Điện Thoại Nổi Bật</h1>
-        <div className="grid xl:grid-cols-7  gap-5  sm:grid-cols-4">
+        <div className="grid xl:grid-cols-5  gap-5  sm:grid-cols-4">
 
             {products.map(product => <Products
                 data={product}
