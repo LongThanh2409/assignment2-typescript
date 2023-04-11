@@ -52,7 +52,7 @@ const EditProducts_Admin = () => {
 
 
     return <>
-        {console.log(register("category"))}
+
         {console.log(register("name"))}
 
 
@@ -111,6 +111,15 @@ const EditProducts_Admin = () => {
                                 {errors.price && errors.price.message}
                             </p>
                         </div>
+                    </div>
+                    <div className="w-full md:w-1/2 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="product-price">
+                            Tên thương hiệu
+                        </label>
+                        <input className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="product-price" type="text"  {...register(`brand.name`)} />
+                        <p className='text-red-600 text-[10px]'>
+                            {errors.brand?.name && errors.brand.name.message}
+                        </p>
                     </div>
 
                     <div className="w-full px-3 mb-6 md:mb-0">

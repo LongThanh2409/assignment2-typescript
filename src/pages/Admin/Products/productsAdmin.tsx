@@ -38,15 +38,18 @@ const ProductsAdmin = () => {
         }
     };
     const handlRomve = async (id: string | number) => {
-        if (window.confirm("Bạn có chắc là muốn xóa") && user.role) {
+        if (window.confirm("Bạn có chắc là muốn xóa")) {
+            if (user.role) {
 
-            DeleteProducts(id).then(() => {
-                setProducts(products.filter((products) => products.id != id))
-            }).catch((err) => {
-                console.log(err.error);
+                DeleteProducts(id).then(() => {
+                    setProducts(products.filter((products) => products.id != id))
+                }).catch((err) => {
+                    console.log(err.error);
 
-            })
+                })
+            }
         }
+
         alert("bạn không có quyền")
     }
 
@@ -92,9 +95,9 @@ const ProductsAdmin = () => {
                         <tr className="text-center">
                             <th >{index + 1}</th>
                             <td className="font-bold">{products.name}</td>
-                            <td className="w-36 m-auto" >
+                            <td className="w-32 m-auto" >
                                 <Image
-                                    src={products.images[0].base_url}
+                                    src={products?.images[0]?.base_url}
                                 />
                             </td>
 
@@ -104,24 +107,22 @@ const ProductsAdmin = () => {
 
                             <td className="w-36 line-through ">{products.original_price.toLocaleString("vi-VN")}đ</td>
 
-                            <td className="w-56">
+                            <td className="w-36">
 
-                                <div className="text-sm font-sans text-gray-600 mt-7 leading-5 line-clamp-6" dangerouslySetInnerHTML={{ __html: products.description }} />
+                                <div className="text-sm font-sans text-gray-600 mt-7 leading-5 line-clamp-2 " dangerouslySetInnerHTML={{ __html: products.description }} />
                             </td>
 
                             <td className="w-36">
 
-                                {
-                                    categories.map((c) =>
 
 
-                                        c.name === products.brand.name ? products.brand.name : ""
+                                {products?.brand?.name}
 
-                                    )
-                                }
+
+
 
                             </td>
-                            <td>
+                            <td >
 
                                 <button onClick={() => handlRomve(products.id)} data-name="${projects.name}" data-id="${projects.id}" className="bg-red-500 text-white hover:bg-red-700 btn-remove border-0 p-2 rounded-md mx-1">
                                     Remove

@@ -20,8 +20,8 @@ const Header = () => {
             <div className="container w-2/3  h-[64px] mx-auto flex items-center gap-7">
                 <img className="w-[64px] pl-2" src="/logo.png" alt="" />
                 <input className="pl-2 rounded-lg grow h-[34px] " type="text" placeholder="search" />
-                <h1>Hello  {user ? user.Name : "Admin"}</h1>
-                <button onClick={() => clearAccessToken()}>Đăng xuất </button>
+                <h1 className="text-white">Hello  {user ? user.Name : "Admin"}</h1>
+                <button className="bg-red-500 text-white hover:bg-red-700 p-2 rounded-lg" onClick={clearAccessToken}>Đăng xuất </button>
             </div>
         </header>
     </>

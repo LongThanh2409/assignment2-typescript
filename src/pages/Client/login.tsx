@@ -39,15 +39,7 @@ const Logins = () => {
             }
 
         } catch (err) {
-            // const enteredUser = allusers.find((user: { email: string; }) => user.email === data.email);
-            // if (!enteredUser && enteredUser != "") {
-            //     setError("Invalid email");
-            //     return;
-            // }
-            // if (enteredUser.password !== data.password && enteredUser.password !== "") {
-            //     setError("Invalid password");
-            //     return;
-            // }
+
             const matchingUser =
                 allusers
                     .find((user: { email: string, password: string }) => user.email == data.email)

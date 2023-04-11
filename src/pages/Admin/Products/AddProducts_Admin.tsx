@@ -81,7 +81,7 @@ const AddProducts_Admin = () => {
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="product-price">
                                 Giá Khuyến Mãi
                             </label>
-                            <input className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="product-price" type="number"  {...register("price")} />
+                            <input className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="product-price" type="number"  {...register("brand")} />
                             <p className='text-red-600 text-[10px]'>
                                 {errors.price && errors.price.message}
                             </p>
@@ -91,12 +91,10 @@ const AddProducts_Admin = () => {
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="product-category">
                             Danh mục sản phẩm
                         </label>
-                        <select className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="product-category">
-                            <option value="">Chọn danh mục sản phẩm</option>
-                            <option value="category1">Danh mục sản phẩm 1</option>
-                            <option value="category2">Danh mục sản phẩm 2</option>
-                            <option value="category3">Danh mục sản phẩm 3</option>
-                        </select>
+                        <input className="appearance-none block w-full  text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="product-price" type="number"  {...register("price")} />
+                        <p className='text-red-600 text-[10px]'>
+                            {errors.price && errors.price.message}
+                        </p>
                     </div>
                     <div className="w-full px-3 mb-6 md:mb-0">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="product-description">

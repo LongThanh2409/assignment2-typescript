@@ -10,7 +10,7 @@ export interface IProduct {
     images: Images[],
     brand: { id: number, name: string, slug: string }
     specifications: ISpecification[]
-    category: string
+
 }
 export interface Images {
     map(arg0: (image: any) => JSX.Element): import("react").ReactNode;
@@ -68,8 +68,16 @@ export const updateSchema = Yup.object({
             // thumbnail_url: Yup.string()
         })
     ),
+    brand:
+        Yup.object().shape({
+
+            name: Yup.string().required("TRường dữ liệu bắt buộc"),
+
+        }),
+
+
     description: Yup.string().min(10, "Tối thiếu 10 ký tự").required("Trường dữ liệu bắt buộc"),
-    category: Yup.string().required("Trường dữ liệu bắt buộc"),
+
 })
 
 export type updateForm = Yup.InferType<typeof updateSchema>
@@ -89,6 +97,13 @@ export const addSchema = Yup.object({
             // position: Yup.number(),
             // small_url: Yup.string(),
             // thumbnail_url: Yup.string()
+        })
+    ),
+    brand: Yup.array().of(
+        Yup.object().shape({
+            id: Yup.string(),
+            name: Yup.string(),
+
         })
     ),
     description: Yup.string().min(10, "Tối thiếu 10 ký tự").required("Trường dữ liệu bắt buộc"),

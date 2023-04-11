@@ -1,25 +1,19 @@
-
-
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom'
-import * as Yup from 'yup'
 import { SignupForm, signupSchema } from '../../interfaces/auth';
 import { Sig_nup } from '../../Api/athu';
-
-
-
 const Signup = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<SignupForm>({
         resolver: yupResolver(signupSchema)
     })
-
     const navigate = useNavigate()
-
     const onSubmit = async (data: SignupForm) => {
+
         try {
             const response = await Sig_nup(data)
             console.log(response);
+            alert("Đăng kí thành công")
             navigate('/login')
 
         } catch (err) {
