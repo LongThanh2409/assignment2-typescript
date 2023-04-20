@@ -27,14 +27,17 @@ const HomePages = () => {
         <Slider />
 
         <h1 className="my-10 text-xl ml-10">Điện Thoại Nổi Bật</h1>
-        <div className="grid xl:grid-cols-5  gap-5 px-8 sm:grid-cols-4">
+        <section className="py-10 bg-gray-100">
+            <div className="mx-auto grid max-w-6xl  grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 
-            {products.map(product => <Products
-                data={product}
-                key={product.id} />)}
+                {products.map(product => <Products
+                    data={product}
+                    key={product.id} />)}
 
 
-        </div >
+
+            </div>
+        </section >
 
     </>
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import UserLayout from './components/layout/userLayout'
 import HomePages from './pages/HomePages'
 import Slider from './components/layout/slider'
@@ -10,9 +10,19 @@ import Signup from './pages/Client/signup'
 import ProductsAdmin from './pages/Admin/Products/productsAdmin'
 import AddProducts_Admin from './pages/Admin/Products/AddProducts_Admin'
 import EditProducts_Admin from './pages/Admin/Products/EditProducts_Admin'
+import { useLocalStorage } from './hooks'
+
 
 
 function App() {
+
+  const [user] = useLocalStorage("user", null);
+
+
+
+
+
+
   return <BrowserRouter>
     <Routes>
       <Route path='/' element={<UserLayout />}>
@@ -23,7 +33,7 @@ function App() {
 
       </Route>
       <Route path='/admin' element={<Layout />}>
-        <Route index path='/admin' element={<ProductsAdmin />} />
+        <Route index path='/admin' element={user?.role ? <ProductsAdmin /> : <Navigate to={"/login"} />} />
         <Route path='add-products' element={<AddProducts_Admin />} />
         <Route path='edit-products/:id' element={<EditProducts_Admin />} />
 

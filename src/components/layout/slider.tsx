@@ -1,5 +1,7 @@
-import img from "../../../public/slider1.png";
-import img1 from "../../../public/slider1.png";
+
+import img1 from "../../../public/slide2.webp";
+import img2 from "../../../public/slide3.webp";
+import img3 from "../../../public/slide4.webp";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -9,7 +11,7 @@ import { Pagination, Autoplay } from "swiper";
 const Slider = () => {
 
     return (
-        <div className="mt-10 px-10">
+        <div className="mt-10 ">
             <Swiper
                 pagination={{
                     dynamicBullets: true,
@@ -19,13 +21,19 @@ const Slider = () => {
                     disableOnInteraction: false,
                 }}
                 modules={[Pagination, Autoplay]}
-                className="container mx-auto object-cover "
+                className="w-3/4"
             >
+
                 <SwiperSlide>
-                    <img src={img} alt="" className="object-cover" />
+                    <img src={img1} alt="" className=" w-full h-full" />
                 </SwiperSlide>
+
                 <SwiperSlide>
-                    <img src={img1} alt="" className=" object-cover" />
+                    <img src={img2} alt="" className=" w-full h-full" />
+                </SwiperSlide>
+
+                <SwiperSlide>
+                    <img src={img3} alt="" className=" w-full h-full" />
                 </SwiperSlide>
 
             </Swiper>
